@@ -1,4 +1,5 @@
-import { Text, View, StyleSheet, FlatList } from "react-native";
+import { Link } from "expo-router";
+import { Text, View, StyleSheet} from "react-native";
 
 
 interface DayListItemProps {
@@ -9,6 +10,7 @@ export default function DayListItem({ item }: DayListItemProps) {
   return (
     <View style={styles.box} key={item}>
       <Text style={styles.text}>{item}</Text>
+      <Link href={`/days/${item}`} style={{ position: "absolute", width: "100%", height: "100%" }} />
     </View>
   );
 }

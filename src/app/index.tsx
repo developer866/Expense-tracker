@@ -1,8 +1,8 @@
 import { StyleSheet, View, StatusBar, FlatList, ActivityIndicator } from "react-native";
 import { Inter_900Black, useFonts } from "@expo-google-fonts/inter";
-import DayListItem from "./src/component/core/DayListItem";
+import DayListItem from "../component/core/DayListItem";
 
-export default function App() {
+export default function HomeScreen() {
   const [fontLoaded, fontError] = useFonts({
     Inter: Inter_900Black,
   });
@@ -25,7 +25,7 @@ export default function App() {
         data={days}
         renderItem={({ item }) => <DayListItem item={item} />}
         keyExtractor={(item) => item.toString()}
-        numColumns={2}
+        numColumns={3}
         contentContainerStyle={styles.content}
         columnWrapperStyle={styles.column}
       />
