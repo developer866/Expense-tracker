@@ -1,50 +1,41 @@
-import { Text, StyleSheet, View, StatusBar, FlatList } from "react-native";
-// import DayListItem from "../component/core/DayListItem";
+import { StyleSheet, View, StatusBar, FlatList, ActivityIndicator } from "react-native";
+import { Inter_900Black, useFonts } from "@expo-google-fonts/inter";
 import DayListItem from "./src/component/core/DayListItem";
+
 export default function App() {
+  const [fontLoaded, fontError] = useFonts({
+    Inter: Inter_900Black,
+  });
+
+  // Show a spinner until the font is ready (or has failed)
+  if (!fontLoaded && !fontError) {
+    return (
+      <View style={[styles.container, styles.center]}>
+        <ActivityIndicator size="large" color="#9b4521" />
+      </View>
+    );
+  }
+
   const days = [...Array(24).keys()].map((day) => day + 1);
 
   return (
     <View style={styles.container}>
+      <StatusBar barStyle="dark-content" />
       <FlatList
-        contentContainerStyle={styles.content}
         data={days}
-        columnWrapperStyle={styles.column}
-        numColumns={2}
         renderItem={({ item }) => <DayListItem item={item} />}
         keyExtractor={(item) => item.toString()}
+        numColumns={2}
+        contentContainerStyle={styles.content}
+        columnWrapperStyle={styles.column}
       />
-
-      <StatusBar style="auto" />
     </View>
   );
 }
+
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    gap: 10,
-  },
-  content: {
-    gap: 10,
-    padding: 10,
-  },
-  column: {
-    gap: 10,
-  },
-  box: {
-    backgroundColor: "#f9ede3",
-    alignItems: "center",
-    flex: 1,
-    aspectRatio: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: "#9b4521",
-    borderRadius: 20,
-  },
-  text: {
-    color: "#9b4521",
-    fontSize: 70,
-  },
+  container: { flex: 1, backgroundColor: "#fff" },
+  center: { justifyContent: "center", alignItems: "center" },
+  content: { gap: 10, padding: 10 },
+  column: { gap: 10 },
 });
