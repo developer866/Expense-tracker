@@ -4,7 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Logo from '../components/Logo';
 import { colors, APP_NAME } from '../theme';
 
-// Temporary screen. Real Login / Register come in the next step.
+
 export default function AuthPlaceholder({ onReplayOnboarding }) {
   const soon = () => Alert.alert('Coming next', 'Login and register are the next step.');
   return (
