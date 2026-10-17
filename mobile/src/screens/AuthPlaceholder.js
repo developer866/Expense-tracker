@@ -1,19 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, Alert, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Logo from '../components/Logo';
+import Register from './Register';
 import { colors, APP_NAME } from '../theme';
 
+export default function AuthPlaceholder({ onReplayOnboarding, onRegister }) {
+  const [showRegister, setShowRegister] = useState(false);
+  const soon = () => Alert.alert('Coming next', 'Login is the next step.');
 
-export default function AuthPlaceholder({ onReplayOnboarding }) {
-  const soon = () => Alert.alert('Coming next', 'Login and register are the next step.');
+  if (showRegister) {
+    return (
+      <Register
+        onBack={() => setShowRegister(false)}
+        onLogin={soon}
+      />
+    );
+  }
+
+  const handleRegister = onRegister || (() => setShowRegister(true));
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.center}>
         <Logo size={80} />
         <Text style={styles.title}>{APP_NAME}</Text>
       </View>
-      <TouchableOpacity style={styles.primary} onPress={soon}>
+      <TouchableOpacity
+        style={styles.primary}
+        onPress={handleRegister}
+        activeOpacity={0.8}
+      >
         <Text style={styles.primaryText}>Create account</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.secondary} onPress={soon}>
